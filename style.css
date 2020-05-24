@@ -1,0 +1,28 @@
+html {
+  font-family: sans-serif;
+}
+
+h1 {
+  font-size: 1.5rem;
+}
+
+body>div {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+#display {
+  font-family: monospace;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid black;
+  border-radius: 0.25rem;
+}
+
+#event-list {
+  list-style: none;
+  list-style-position: outside;
+  padding: 0;
+}

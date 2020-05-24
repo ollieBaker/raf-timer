@@ -37,9 +37,9 @@ const animate = (start, d) => {
   //display
   const minutes = Math.floor(time / 60000);
   display.minutes.innerHTML = minutes;
-  const seconds = ((time % 60000) / 1000).toFixed(0);
-  display.seconds.innerHTML = seconds;
-  const millis = ((time % 1000) / 10).toFixed(0);
+  const seconds = Math.floor(((time % 60000) / 1000)).toFixed(0);
+  display.seconds.innerHTML = pad(seconds);
+  const millis = Math.floor(((time % 1000) / 10)).toFixed(0);
   display.millis.innerHTML = pad(millis);
 
    for (let i = subscriptions.length - 1; i >= 0; i--) {
