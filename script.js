@@ -27,12 +27,23 @@ let time = 0;
 const pad = (input) => {
   return input.toString().length < 2 ? `0${input}` : input;
 }
-
-const animate = (start, d) => {
+let log = 0;
+const animate = (start, delta) => {
   //update time
-  const now = Date.now();
-  const delta = (now - start);
-  time += delta;
+  // const now = Date.now();
+  const progress = (delta - start);
+  
+
+  if(++log < 5) {
+    console.log(
+      'start',start,
+      'delta', delta,
+      // 'now', now,
+      'progress', progress,
+      'time', time,
+    )
+  }
+  
 
   //display
   const minutes = Math.floor(time / 60000);
@@ -44,7 +55,7 @@ const animate = (start, d) => {
 
    for (let i = subscriptions.length - 1; i >= 0; i--) {
     const {start, delay, cb} = subscriptions[i];
-    const expired = now - start >= delay;
+    const expired = Date.now() - start >= delay;
     if (expired) {
       const newLi = document.createElement('li');
       newLi.innerHTML = `Complete at ${time / SECOND}s, after ${delay / SECOND}s.`
@@ -57,8 +68,11 @@ const animate = (start, d) => {
     }
   }
 
+  //update time
+  time += progress;
+
   //repeat
-  requestAnimationFrame((d) => animate(now, d));
+  requestAnimationFrame((nd) => animate(delta, nd));
 };
 
 subscribe(SECOND * 3, () => { 
@@ -69,9 +83,7 @@ subscribe(SECOND * 3, () => {
 subscribe(SECOND * 30, () => { console.log('DONE 30') }); 
 
 function start() {
-  const now = Date.now();
-  console.log('start:', now);
-  requestAnimationFrame((delta) => animate(now, delta));
+  requestAnimationFrame((delta) => animate(delta, delta));
 }
 
 start();
